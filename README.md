@@ -1,12 +1,26 @@
-# krapi.clj
+# KrAPI.clj
 
-A Clojure library designed to interface with Kraken.com REST API both public and private.
+A Clojure library designed to interface with Kraken.com REST API both public and private methods.
 
 ## Usage
+
+For general Kraken API questions see their [own documentation](https://www.kraken.com/en-gb/features/api).
 
 The public API operations should be available to all, however, private API operations require a valid api-key and api-secret available from your Kraken account.
 
 Kraken makes use of rate limiting and complex rules about how this works. Familiarise yourself with their clear and concise documentation. The only issue is the error codes can be confusing and failed queries still are subject to rate limiting. You can easily be banned from the API if you abuse them.
+
+### Public Methods
+
+The library is usable as-is for the Public methods.
+
+### Private Methods
+
+The library needs an api-key and api-secret which you can generate on your Kraken account. You also need the appropriate permissions for that key. 
+
+### TOTP
+
+What if you're using TOPT? Then every call that needs one should have {:otp "otp code here"} provided as a parameter.
 
 ## Dependencies
 
