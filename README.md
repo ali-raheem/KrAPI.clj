@@ -8,6 +8,12 @@ The public API operations should be available to all, however, private API opera
 
 Kraken makes use of rate limiting and complex rules about how this works. Familiarise yourself with their clear and concise documentation. The only issue is the error codes can be confusing and failed queries still are subject to rate limiting. You can easily be banned from the API if you abuse them.
 
+## Dependencies
+
+* clj-http "3.12.0"
+* cheshire "5.10.0"
+* pandect "1.0.1"
+
 ### Examples
 
 ```
