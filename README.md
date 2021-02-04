@@ -12,15 +12,19 @@ Kraken makes use of rate limiting and complex rules about how this works. Famili
 
 ### Public Methods
 
-The library is usable as-is for the Public methods.
+The library is usable as-is for the Public methods. By default the `api-url` is set to "https://api.kraken.com/" and `api-version` is "0". You can modify this with `(init "api-url-here" "api-version-here")`.
 
 ### Private Methods
 
-The library needs an api-key and api-secret which you can generate on your Kraken account. You also need the appropriate permissions for that key. 
+The library needs an api-key and api-secret which you can generate on your Kraken account. You also need the appropriate permissions for that key. Therefore you need to provide these before making use of `query-private` you do this with `init-private` e.g. `(init-private "api-key-here" "api-secret-here")` These should be provided as is and Kraken will provide them encoded as strings.
 
 ### TOTP
 
 What if you're using TOPT? Then every call that needs one should have {:otp "otp code here"} provided as a parameter.
+
+## Building
+
+Use lein to run, repl or build.
 
 ## Dependencies
 
