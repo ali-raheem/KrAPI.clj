@@ -30,6 +30,27 @@ What if you're using TOPT? Then every call that needs one should have {:otp "otp
 
 ### Examples
 
+Usage in the REPL
+
+```
+ktb.core=> (query-private "DepositMethods" {:asset "XDG"})
+{"error" [], "result" [{"method" "Dogecoin", "limit" false, "fee" "0.00000000", "gen-address" true}]}
+ktb.core=> (query-private "DepositAddresses" {:asset "XDG" :method "Dogecoin" :new true})
+{"error" [], "result" [{"address" "REDACTED_ADDRESS", "expiretm" 0, "new" true}]}
+ktb.core=> (query-private "DepositStatus" {:asset "XDG" :method "Dogecoin"})
+{"error" [], "result" []}
+ktb.core=> (query-private "DepositStatus" {:asset "XDG" :method "Dogecoin"})
+{"error" [], "result" [{"method" "Dogecoin", "info" "REDACTED_ADDRESS", "asset" "XXDG", "status" "Settled", "time" 1612452711, "amount" "94.00000000", "refid" "REDACTED_REFID", "txid" "REDACTED_TXID", "aclass" "currency"}]}
+ktb.core=> (query-private "DepositStatus" {:asset "XDG" :method "Dogecoin"})
+{"error" [], "result" [{"method" "Dogecoin", "info" "REDACTED_ADDRESS", "asset" "XXDG", "status" "Settled", "time" 1612452711, "amount" "94.00000000", "refid" "REDACTED_REFID", "txid" "REDACTED_TXID", "aclass" "currency"}]}
+ktb.core=> (query-private "DepositStatus" {:asset "XDG" :method "Dogecoin"})
+{"error" [], "result" [{"method" "Dogecoin", "info" "REDACTED_ADDRESS", "asset" "XXDG", "status" "Success", "fee" "0.00000000", "time" 1612452711, "amount" "1000.00000000", "refid" "REDACTED_REFID", "txid" "REDACTED_TXID", "aclass" "currency"}]}
+ktb.core=> (query-private "TradeBalance" {:asset "XXDG"})
+{"error" [], "result" {"eb" "1000.00000000", "tb" "0.00000000", "m" "0.00000000", "n" "0.00000000", "c" "0.00000000", "v" "0.00000000", "e" "0.00000000", "mf" "0.00000000"}}
+ktb.core=> (query-private "AddOrder" {:pair "XDGEUR" :type "sell" :ordertype "limit" :price "0.0400761" :volume "100")
+{"error" [], "result" {"descr" {"order" "sell 100.00000000 XDGEUR @ limit 0.0400761"}}}
+```
+
 ```
 (defn get-system-status 
   "Get Kraken system status"
