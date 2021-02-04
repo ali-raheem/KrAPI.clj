@@ -33,11 +33,13 @@
   "Base64 encode `data` returning a String."
   [data]
   (.encodeToString (java.util.Base64/getEncoder) data))
+(def nonce-counter- (atom 0))
 (defn get-nonce
   "Return a integer to be used as a nonce.
   Strictly increasing value based on the local time in milliseconds."
   []
-  (* 1000 (System/currentTimeMillis)))
+  (+ (swap! nonce-counter- #(mod (inc %) 1000)) 
+     (* 1000 (System/currentTimeMillis))))
 
 (defn concat-bytes
   "Takes byte-array `a` and `b` and returns a byte-array of `b` appended to `a`."
@@ -48,6 +50,11 @@
     (System/arraycopy a 0 out 0 a_len)
     (System/arraycopy b 0 out a_len b_len)
     out))
+
+(defn parse-json-response
+  "Parse the body of a json `res`ponse from a api query"
+  [res]
+  (parse-string (:body res)))
 
 (defn query-private
   "Query a private Kraken API operation.
@@ -65,14 +72,13 @@
          hash (sha256/sha256-bytes (str nonce query_string))
          uri_hash (concat-bytes uri hash)
          mac (sha512/sha512-hmac-bytes uri_hash (b64decode @api-secret))]
-     (parse-string 
-      (:body 
-       (client/post
-        (str @api-url "/private/" path) 
-        {:accept :json
-         :headers {"API-Key" @api-key
-                   "API-Sign" (b64encode mac)}
-         :form-params params}))))))
+     (parse-json-response 
+      (client/post
+       (str @api-url "/private/" path) 
+       {:accept :json
+        :headers {"API-Key" @api-key
+                  "API-Sign" (b64encode mac)}
+        :form-params params})))))
 
 (defn query-public
   "Query a public Kraken API operation.
@@ -82,11 +88,10 @@
   Provide a operation in `path` and a map of arguments in `data`"
   ([path] (query-public path ""))
   ([path params]
-   (parse-string 
-    (:body 
-     (client/get (str @api-url "/public/" path)
-                 {:multi-param-style :comma-separated
-                  :accept :json
-                  :query-params params})))))
+   (parse-json-response
+    (client/get (str @api-url "/public/" path)
+                {:multi-param-style :comma-separated
+                 :accept :json
+                 :query-params params}))))
 
 
