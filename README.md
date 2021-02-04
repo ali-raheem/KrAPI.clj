@@ -42,8 +42,6 @@ ktb.core=> (query-private "DepositStatus" {:asset "XDG" :method "Dogecoin"})
 ktb.core=> (query-private "DepositStatus" {:asset "XDG" :method "Dogecoin"})
 {"error" [], "result" [{"method" "Dogecoin", "info" "REDACTED_ADDRESS", "asset" "XXDG", "status" "Settled", "time" 1612452711, "amount" "94.00000000", "refid" "REDACTED_REFID", "txid" "REDACTED_TXID", "aclass" "currency"}]}
 ktb.core=> (query-private "DepositStatus" {:asset "XDG" :method "Dogecoin"})
-{"error" [], "result" [{"method" "Dogecoin", "info" "REDACTED_ADDRESS", "asset" "XXDG", "status" "Settled", "time" 1612452711, "amount" "94.00000000", "refid" "REDACTED_REFID", "txid" "REDACTED_TXID", "aclass" "currency"}]}
-ktb.core=> (query-private "DepositStatus" {:asset "XDG" :method "Dogecoin"})
 {"error" [], "result" [{"method" "Dogecoin", "info" "REDACTED_ADDRESS", "asset" "XXDG", "status" "Success", "fee" "0.00000000", "time" 1612452711, "amount" "1000.00000000", "refid" "REDACTED_REFID", "txid" "REDACTED_TXID", "aclass" "currency"}]}
 ktb.core=> (query-private "TradeBalance" {:asset "XXDG"})
 {"error" [], "result" {"eb" "1000.00000000", "tb" "0.00000000", "m" "0.00000000", "n" "0.00000000", "c" "0.00000000", "v" "0.00000000", "e" "0.00000000", "mf" "0.00000000"}}
